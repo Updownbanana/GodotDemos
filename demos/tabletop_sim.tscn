@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqyhbgn0ujs36"]
+
+[ext_resource type="PackedScene" uid="uid://did5jm1d5u12v" path="res://card.tscn" id="1_nw0uv"]
+
+[node name="TabletopSim" type="Node2D"]
+
+[node name="Card" parent="." instance=ExtResource("1_nw0uv")]
+position = Vector2(470, 125)
+
+[node name="Card2" parent="." instance=ExtResource("1_nw0uv")]
+position = Vector2(266, 124)
+
+[node name="Card3" parent="." instance=ExtResource("1_nw0uv")]
+position = Vector2(71, 125)

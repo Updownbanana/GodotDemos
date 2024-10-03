@@ -1,0 +1,100 @@
+[gd_scene load_steps=12 format=3 uid="uid://ibj6w0xl1e0n"]
+
+[ext_resource type="Script" path="res://demos/funny_pillars.gd" id="1_dkvqp"]
+[ext_resource type="Texture2D" uid="uid://carq07ac2ql65" path="res://grid.png" id="2_1ga7o"]
+[ext_resource type="Shader" path="res://GodotRetro/Screen Shaders/Aditional Shaders/ColorPrecission.gdshader" id="3_byney"]
+[ext_resource type="Shader" path="res://GodotRetro/Screen Shaders/NTSCBasic.gdshader" id="3_d106a"]
+[ext_resource type="Shader" path="res://GodotRetro/Screen Shaders/Aditional Shaders/Sharpness.gdshader" id="3_trpj0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6j2ut"]
+transparency = 1
+albedo_texture = ExtResource("2_1ga7o")
+uv1_scale = Vector3(8, 8, 8)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cv11b"]
+size = Vector2(70.555, 61.74)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_788g7"]
+shader = ExtResource("3_d106a")
+shader_parameter/_bleeding = 0.073
+shader_parameter/_fringing = 0.036
+shader_parameter/_scanline = 0.205
+shader_parameter/linearColorSpace = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_is2xj"]
+shader = ExtResource("3_byney")
+shader_parameter/SCREEN_WIDTH = 320.0
+shader_parameter/COLOR_FACTOR = 4.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8khpb"]
+shader = ExtResource("3_trpj0")
+shader_parameter/sharpen_amount = 1.0
+
+[sub_resource type="Environment" id="Environment_xqcrt"]
+
+[node name="FunnyPillars" type="Node3D"]
+script = ExtResource("1_dkvqp")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_6j2ut")
+mesh = SubResource("PlaneMesh_cv11b")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+omni_attenuation = 0.435275
+
+[node name="BackBuffer3" type="BackBufferCopy" parent="."]
+position = Vector2(577, 320)
+scale = Vector2(5.78, 3.29)
+copy_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="BackBuffer3"]
+material = SubResource("ShaderMaterial_788g7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -100.0
+offset_right = -100.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackBuffer2" type="BackBufferCopy" parent="."]
+position = Vector2(577, 320)
+scale = Vector2(5.78, 3.29)
+copy_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="BackBuffer2"]
+material = SubResource("ShaderMaterial_is2xj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -100.0
+offset_right = -100.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackBuffer" type="BackBufferCopy" parent="."]
+visible = false
+position = Vector2(577, 320)
+scale = Vector2(5.78, 3.29)
+copy_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="BackBuffer"]
+material = SubResource("ShaderMaterial_8khpb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -100.0
+offset_right = -100.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xqcrt")

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://did5jm1d5u12v"]
+
+[ext_resource type="Script" path="res://card.gd" id="1_5s5f3"]
+[ext_resource type="SpriteFrames" uid="uid://c1hxyhn7ttn14" path="res://assets/new_sprite_frames.tres" id="2_pjs1h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lpgoy"]
+size = Vector2(128, 192)
+
+[node name="Card" type="Node2D"]
+script = ExtResource("1_5s5f3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_pjs1h")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_lpgoy")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

@@ -1,0 +1,79 @@
+[gd_scene load_steps=7 format=3 uid="uid://dqpfpr2wb3160"]
+
+[ext_resource type="VideoStream" path="res://assets/output_video.ogv" id="1_lcl42"]
+[ext_resource type="Shader" path="res://GodotRetro/Screen Shaders/VHS.gdshader" id="1_ube8m"]
+[ext_resource type="Shader" path="res://GodotRetro/Screen Shaders/TV.gdshader" id="2_u4305"]
+[ext_resource type="AudioStream" uid="uid://cupmvju2tm6ly" path="res://assets/20150611_Daft Punk - Voyager (Official Audio).wav" id="2_xathd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rhy1s"]
+shader = ExtResource("2_u4305")
+shader_parameter/vertJerkOpt = 0.2
+shader_parameter/vertMovementOpt = 0.0
+shader_parameter/bottomStaticOpt = 0.0
+shader_parameter/bottomStaticStrenth = 0.7
+shader_parameter/scalinesOpt = 0.8
+shader_parameter/rgbOffsetOpt = 0.2
+shader_parameter/horzFuzzOpt = 0.15
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p310g"]
+shader = ExtResource("1_ube8m")
+shader_parameter/tape_wave_amount = 0.003
+shader_parameter/tape_crease_amount = 2.5
+shader_parameter/color_displacement = 1.0
+shader_parameter/lines_velocity = 0.1
+
+[node name="Node2D" type="Node2D"]
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+offset_right = 1920.0
+offset_bottom = 1088.0
+stream = ExtResource("1_lcl42")
+autoplay = true
+loop = true
+
+[node name="Label" type="Label" parent="."]
+offset_left = 25.0
+offset_top = 927.0
+offset_right = 1143.0
+offset_bottom = 1102.0
+theme_override_font_sizes/font_size = 104
+text = "we'll be right back"
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+position = Vector2(972, 538)
+scale = Vector2(9.73, 5.41)
+copy_mode = 2
+
+[node name="crt" type="ColorRect" parent="BackBufferCopy"]
+material = SubResource("ShaderMaterial_rhy1s")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -100.0
+offset_right = -100.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackBufferCopy2" type="BackBufferCopy" parent="."]
+position = Vector2(964, 538)
+scale = Vector2(9.61, 5.41)
+copy_mode = 2
+
+[node name="vhs" type="ColorRect" parent="BackBufferCopy2"]
+material = SubResource("ShaderMaterial_p310g")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -100.0
+offset_right = -100.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_xathd")
+volume_db = -8.0
+autoplay = true
